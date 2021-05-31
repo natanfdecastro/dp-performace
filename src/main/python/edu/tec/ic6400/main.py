@@ -5,7 +5,7 @@ def main():
     wt = [5, 15, 10, 10, 8]
     W = 30
     n = len(val)
-    rutinas_brute_force(W, wt, val, n)
+    routines_brute_force(W, wt, val, n)
 
 
 
