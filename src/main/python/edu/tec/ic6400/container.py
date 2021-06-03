@@ -43,9 +43,20 @@ if(mode=="-p"):
     random.shuffle(benefits_range_list)
     random.shuffle(weight_range_list)
 
-    print(benefits_range_list)
-    print(weight_range_list)
-    print(algorithm,weight,number_of_elements,weight_range,benefits_range,iterations)
+   # print(benefits_range_list)
+   # print(weight_range_list)
+    item_weight=[]
+    item_benefit=[]
+
+    for i in range(int(number_of_elements)):
+        item_benefit.append(random.choice(benefits_range_list))
+        item_weight.append(random.choice(weight_range_list))
+
+
+    print(item_benefit)
+    print(item_weight)
+    knapsack.routines_brute_force_random(int(weight),item_weight,item_benefit,int(number_of_elements),int(iterations))
+   # print(algorithm,weight,number_of_elements,weight_range,benefits_range,iterations)
 
 elif(mode=="-a"):
     print("Se quiere hacer del modo manual")
