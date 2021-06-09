@@ -56,7 +56,8 @@ if(mode=="-p"):
     print(item_benefit)
     print(item_weight)
     knapsack.routines_brute_force_random(int(weight),item_weight,item_benefit,int(number_of_elements),int(iterations))
-   # print(algorithm,weight,number_of_elements,weight_range,benefits_range,iterations)
+   # print(algorithm,weight,number_of_elements,weight_range,benefits_ran
+# ge,iterations)
 
 elif(mode=="-a"):
     print("Se quiere hacer del modo manual")
