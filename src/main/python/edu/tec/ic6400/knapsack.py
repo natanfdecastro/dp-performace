@@ -8,9 +8,11 @@ import parser_txt_knapsack
 def knapsack_bottom_up():
     print("Bottom up")
 
-memoize_top_down = []
-def knapsack_top_down(file,iterations):
 
+# Matrix use to memoization of top down approach
+memoize_top_down = []
+# values setter for knapsack with top down approach
+def knapsack_top_down(file,iterations):
     matrix_result = parser_txt_knapsack.parser(file)
     max_weigth = matrix_result[0][0]
     benefits = matrix_result[1]
@@ -25,11 +27,10 @@ def knapsack_top_down(file,iterations):
     print('Capacity: ', n)
     print('\n')
     for i in range(int(iterations)):
-        res = knapsack(weigths, benefits, max_weigth, n)
-        print("Max benefit: ", res)
-        op = get_list_benefits(benefits, weigths, n, max_weigth)
-        print("Selected Items: ", op)
+        print("Max benefit: ", knapsack(weigths, benefits, max_weigth, n))
+        print("Selected Items: ", __get_list_benefits(benefits, weigths, n, max_weigth))
 
+# knapsack with top down approach
 def knapsack(wtf, vals, wf, nf):
 
     # base conditions
@@ -47,7 +48,8 @@ def knapsack(wtf, vals, wf, nf):
         memoize_top_down[nf][wf] = knapsack(wtf, vals, wf, nf - 1)
         return memoize_top_down[nf][wf]
 
-def get_list_benefits(val,wt,n,W):
+# method to read top the matix and get the selected items
+def __get_list_benefits(val,wt,n,W):
     benefits = []
     i = n
     k = W
