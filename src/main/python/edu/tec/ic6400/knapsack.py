@@ -8,9 +8,59 @@ import parser_txt_knapsack
 def knapsack_bottom_up():
     print("Bottom up")
 
+memoize_top_down = []
+def knapsack_top_down(file,iterations):
 
-def knapsack_top_down():
-    print("top down")
+    matrix_result = parser_txt_knapsack.parser(file)
+    max_weigth = matrix_result[0][0]
+    benefits = matrix_result[1]
+    weigths = matrix_result[2]
+    n = len(benefits)
+    memo = [[0 for i in range(max_weigth + 1)] for j in range(n + 1)]
+    for i in memo:
+        memoize_top_down.append(i)
+    print('Total Weigth: ' + str(max_weigth))
+    print('Benefits: ' + str(benefits))
+    print('Items Weight: ', weigths)
+    print('Capacity: ', n)
+    print('\n')
+    for i in range(int(iterations)):
+        res = knapsack(weigths, benefits, max_weigth, n)
+        print("Max benefit: ", res)
+        op = get_list_benefits(benefits, weigths, n, max_weigth)
+        print("Selected Items: ", op)
+
+def knapsack(wtf, vals, wf, nf):
+
+    # base conditions
+    if nf == 0 or wf == 0:
+        return 0
+    if memoize_top_down[nf][wf] != 0:
+        return memoize_top_down[nf][wf]
+
+    # choice diagram code
+    if wtf[nf - 1] <= wf:
+        memoize_top_down[nf][wf] = max(vals[nf - 1] + knapsack(wtf, vals, wf - wtf[nf - 1], nf - 1), knapsack(wtf, vals, wf, nf - 1))
+        return memoize_top_down[nf][wf]
+
+    elif wtf[nf - 1] > wf:
+        memoize_top_down[nf][wf] = knapsack(wtf, vals, wf, nf - 1)
+        return memoize_top_down[nf][wf]
+
+def get_list_benefits(val,wt,n,W):
+    benefits = []
+    i = n
+    k = W
+
+    while i > 0 and k > 0:
+        if memoize_top_down[i][k] != memoize_top_down[i - 1][k]:
+            benefits.append([i,val[i - 1],wt[i-1]])
+            i = i - 1
+            k = k - wt[i]
+        else:
+            i = i - 1
+    return benefits
+
 
 
 

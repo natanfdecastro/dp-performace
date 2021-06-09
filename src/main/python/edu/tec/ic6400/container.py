@@ -65,4 +65,6 @@ elif(mode=="-a"):
     iterations=sys.argv[4]
     if(algorithm=="1"):
         knapsack.routines_brute_force(file,iterations)
+    elif(algorithm=="3"):
+        knapsack.knapsack_top_down(file,iterations)
 
