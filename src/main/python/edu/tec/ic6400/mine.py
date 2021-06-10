@@ -28,7 +28,7 @@ if mode == "-p":
     if algorithm == 1:
         pass
     elif algorithm == 2:
-        print('11')
+        gold_mine.gold_mine_dp(random_matrix,N,M)
 
 
 elif mode == "-a":
