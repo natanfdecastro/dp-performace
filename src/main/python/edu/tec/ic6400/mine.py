@@ -10,7 +10,7 @@ path.append('src.main.python.edu.tec.ic6400')
 mode = sys.argv[2]
 
 if mode == "-p":
-    print("Se quiere hacer del modo aleatorio")
+    print("[ Random Mode ]")
     algorithm = int(sys.argv[1])
     N = int(sys.argv[3])
     M = int(sys.argv[4])
@@ -24,15 +24,23 @@ if mode == "-p":
         for j in range(0, M):
             random_list.append(random.choice(range(min, max)))
         random_matrix.append(random_list)
-    print(random_matrix)
+
     if algorithm == 1:
         pass
-    elif algorithm == 2:
-        gold_mine.gold_mine_dp(random_matrix,N,M)
+    else:
+        print("-Dynamic programming-")
+        print("")
+        print("Gold Mine")
+        for i in range(len(random_matrix[0])):
+            lst_str = str(random_matrix[i])[1:-1]
+            print(lst_str)
+        print("")
+
+        gold_mine.gold_mine_dp(random_matrix,N,M,iterations)
 
 
 elif mode == "-a":
-    print("Se quiere hacer del modo manual")
+    print("[ Manual Mode ]")
     algorithm = sys.argv[1]
     file = sys.argv[3]
     iterations = sys.argv[4]
@@ -41,7 +49,12 @@ elif mode == "-a":
     m = len(gold_matrix[0])
     if algorithm == 1:
         pass
-    elif algorithm == "2":
-        gold_mine.gold_mine_dp(gold_matrix,n,m)
     else:
-        pass
+        print("-Dynamic programming-")
+        print("")
+        print("Gold Mine")
+        for i in range(len(gold_matrix[0])):
+            lst_str = str(gold_matrix[i])[1:-1]
+            print(lst_str)
+        print("")
+        gold_mine.gold_mine_dp(gold_matrix,n,m,iterations)

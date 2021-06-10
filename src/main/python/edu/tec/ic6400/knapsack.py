@@ -1,3 +1,4 @@
+from datetime import datetime
 from sys import path
 import parser_txt_knapsack
 
@@ -5,7 +6,15 @@ path.append('src.main.python.edu.tec.ic6400')
 
 
 def knapsack_bottom_up(total_weight, items_weights, benefits, capacity, iterations):
-    for _ in range(0, int(iterations)):
+    print("")
+    print("-Bottom up algorithm-")
+    print("Weights and benefits")
+    for i in range(int(capacity)):
+        print("    "+str(items_weights[i])+"   -   "+str(benefits[i]))
+    print("")
+    for k in range(0, int(iterations)):
+        print("[ Iteration: ",k," ]")
+        start_time = datetime.now()
         knapsack_solutions = [[0 for x in range(total_weight + 1)] for _ in range(capacity + 1)]
 
         for i in range(capacity + 1):
@@ -37,6 +46,11 @@ def knapsack_bottom_up(total_weight, items_weights, benefits, capacity, iteratio
 
         included.sort()
         print("Incluidos: ", str(included)[1:-1])
+        end_time = datetime.now()
+        print('Duration: {}'.format(end_time - start_time))
+        print("\n")
+
+
 
 
 # Matrix use to memoization of top down approach
@@ -49,10 +63,20 @@ def knapsack_top_down(max_weigth, weigths, benefits, capacity, iterations):
 
     for i in memo:
         memoize_top_down.append(i)
-
+    print("")
+    print("-Top down algorithm-")
+    print("Weights and benefits")
+    for i in range(int(capacity)):
+        print("    "+str(weigths[i])+"   -   "+str(benefits[i]))
+    print("")
     for i in range(int(iterations)):
+        print("[ Iteration: ",i," ]")
+        start_time = datetime.now()
         print("Beneficio Maximo: ", __knapsack(weigths, benefits, max_weigth, capacity))
         print("Incluidos: ", str(__get_list_benefits(benefits, weigths, capacity, max_weigth))[1:-1])
+        end_time = datetime.now()
+        print('Duration: {}'.format(end_time - start_time))
+        print("\n")
 
 
 # knapsack with top down approach
@@ -95,12 +119,22 @@ def __get_list_benefits(benefits, weigths, capacity, max_weigth):
 
 
 def routines_brute_force(total_weight, items_weights, benefits, capacity, iterations):
-    for _ in range(int(iterations)):
+    print("")
+    print("-Brute force algorithm-")
+    print("Weights and benefits")
+    for i in range(int(capacity)):
+        print("    "+str(items_weights[i])+"   -   "+str(benefits[i]))
+    print("")
+    for i in range(int(iterations)):
+        print("[ Iteration: ",i," ]")
+        start_time = datetime.now()
         included = []
-
         answer, included = knapsack_brute_force(total_weight, items_weights, benefits, capacity, included)
         print("Beneficio máximo: ", answer)
         print("Incluidos: ", str(included)[1:-1])
+        end_time = datetime.now()
+        print('Duration: {}'.format(end_time - start_time))
+        print("\n")
 
 
 def knapsack_brute_force(total_weight, items_weights, benefits, capacity, included):

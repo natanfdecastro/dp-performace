@@ -1,37 +1,46 @@
-def gold_mine_dp(gold, m, n):
-    goldTable = [[0 for i in range(n)]
-                 for j in range(m)]
+from datetime import datetime
 
-    for col in range(n - 1, -1, -1):
-        for row in range(m):
+def gold_mine_dp(gold, m, n,iterations):
+    print("")
+    for i in range(int(iterations)):
+        print("[ Iteration: ",i," ]")
+        start_time = datetime.now()
+        goldTable = [[0 for i in range(n)]
+                     for j in range(m)]
 
-            # Check de value on the rigth cell (->)
-            if (col == n - 1):
-                right = 0
-            else:
-                right = goldTable[row][col + 1]
+        for col in range(n - 1, -1, -1):
+            for row in range(m):
 
-            #  Check de value on the right up cell (/)
-            if (row == 0 or col == n - 1):
-                right_up = 0
-            else:
-                right_up = goldTable[row - 1][col + 1]
+                # Check de value on the rigth cell (->)
+                if (col == n - 1):
+                    right = 0
+                else:
+                    right = goldTable[row][col + 1]
 
-            #  Check de value on the right_down cell
-            if (row == m - 1 or col == n - 1):
-                right_down = 0
-            else:
-                right_down = goldTable[row + 1][col + 1]
+                #  Check de value on the right up cell (/)
+                if (row == 0 or col == n - 1):
+                    right_up = 0
+                else:
+                    right_up = goldTable[row - 1][col + 1]
 
-            # Save the max gold collected from taking either of the above 3 paths
-            goldTable[row][col] = gold[row][col] + max(right, right_up, right_down)
+                #  Check de value on the right_down cell
+                if (row == m - 1 or col == n - 1):
+                    right_down = 0
+                else:
+                    right_down = goldTable[row + 1][col + 1]
 
-    answer = goldTable[0][0]
-    for i in range(m):
-        answer = max(answer, goldTable[i][0])
+                # Save the max gold collected from taking either of the above 3 paths
+                goldTable[row][col] = gold[row][col] + max(right, right_up, right_down)
 
-    print("El maximo de oro a recolectar es: ",answer)
-    print("El camino para recolectar el oro es: ",get_path(goldTable, answer, n, m))
+        answer = goldTable[0][0]
+        for i in range(m):
+            answer = max(answer, goldTable[i][0])
+
+        print("Máximo de oro a recolectar es: ",answer)
+        print("Camino para recolectar el oro es: ",get_path(goldTable, answer, n, m))
+        end_time = datetime.now()
+        print('Duration: {}'.format(end_time - start_time))
+        print("\n")
 
 
 
