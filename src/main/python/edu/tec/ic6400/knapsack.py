@@ -1,76 +1,74 @@
-
 from sys import path
-path.append('src.main.python.edu.tec.ic6400')
 import parser_txt_knapsack
 
+path.append('src.main.python.edu.tec.ic6400')
 
 
-def knapsack_bottom_up():
-    print("Bottom up")
+def knapsack_bottom_up(total_weight, items_weights, benefits, len, iterations):
+    for _ in range(0, int(iterations)):
+        knapsack_solutions = [[0 for x in range(total_weight + 1)] for _ in range(len + 1)]
+
+        for i in range(len + 1):
+            for w in range(total_weight + 1):
+                if i == 0 or w == 0:
+                    knapsack_solutions[i][w] = 0
+                elif items_weights[i - 1] <= w:
+                    knapsack_solutions[i][w] = max(benefits[i - 1]
+                                                   + knapsack_solutions[i - 1][w - items_weights[i - 1]],
+                                                   knapsack_solutions[i - 1][w])
+                else:
+                    knapsack_solutions[i][w] = knapsack_solutions[i - 1][w]
+
+        answer = knapsack_solutions[len][total_weight]
+        print("Beneficio máximo: ", answer)
+        included = []
+        total_weight_temp = total_weight
+        for i in range(len, 0, -1):
+            if answer <= 0:
+                break
+
+            if answer == knapsack_solutions[i - 1][total_weight_temp]:
+                continue
+            else:
+
+                included.append(i)
+
+                answer = answer - benefits[i - 1]
+                total_weight_temp = total_weight_temp - items_weights[i - 1]
+
+        included.sort()
+        print("Incluidos: ", str(included)[1:-1])
 
 
 def knapsack_top_down():
     print("top down")
 
 
+def routines_brute_force(total_weight, items_weights, benefits, capacity, iterations):
+
+    for _ in range(int(iterations)):
+        included = []
+
+        answer, included = knapsack_brute_force(total_weight, items_weights, benefits, capacity, included)
+        print("Beneficio máximo: ", answer)
+        print("Incluidos: ", str(included)[1:-1])
 
 
+def knapsack_brute_force(total_weight, items_weights, benefits, len, included):
 
+    if len == 0 or total_weight == 0:
+        return 0, included
 
-#call routines to solve the problem with brute force.
-def routines_brute_force(fileName,iterations):
-    for i in range(int(iterations)):
-        matrix_result=parser_txt_knapsack.parser(fileName)
-        res=knapsack_brute_force(matrix_result[0][0], matrix_result[2], matrix_result[1], len(matrix_result[1]))
-        print("Beneficio máximo: ",res)
-        subset_sum(matrix_result[1],res,matrix_result[1])
+    if items_weights[len - 1] > total_weight:
+        return knapsack_brute_force(total_weight, items_weights, benefits, len - 1, included)
 
+    else:
+        sum_1, included_temp1 = knapsack_brute_force(total_weight - items_weights[len - 1], items_weights, benefits,
+                                                     len - 1, [len] + included)
+        sum_1 += benefits[len - 1]
+        sum_2, included_temp2 = knapsack_brute_force(total_weight, items_weights, benefits, len - 1, included)
 
-#call routines to solve the problem with brute force.
-def routines_brute_force_random( W, wt, val, n,iterations):
-
-
-    for i in range(int(iterations)):
-        print(i)
-        res=knapsack_brute_force(W, wt, val, n)
-        print("Beneficio máximo: ",res)
-        subset_sum(val, res, val)
-
-
-
-#Solve the knapsack problem with the brute force algorithm.
-def knapsack_brute_force( W, wt, val, n):
-   # initial conditions
-   if n == 0 or W == 0 :
-      return 0
-   # If weight is higher than capacity then it is not included
-   if (wt[n-1] > W):
-      return knapsack_brute_force(W, wt, val, n-1)
-   # return either nth item being included or not
-   else:
-      return max(val[n-1] + knapsack_brute_force(W-wt[n-1], wt, val, n-1),
-         knapsack_brute_force(W, wt, val, n-1))
-
-
-#Find a subarray with a given sum in an array
-def subset_sum(numbers, target,val, partial=[]):
-    s = sum(partial)
-    # check if the partial sum is equals to target
-    if s == target:
-        res= []
-        for i in range(len(partial)):
-            try:
-                res.append(val.index(partial[i])+1)
-            except:
-                pass
-        print("Incluidos: ", res)
-        return (res)
-    if s >= target:
-        return  # if we reach the number why bother to continue
-    for i in range(len(numbers)):
-        n = numbers[i]
-        remaining = numbers[i+1:]
-        subset_sum(remaining, target,val, partial + [n])
-
-
-
+        if sum_1 > sum_2:
+            return sum_1, included_temp1
+        else:
+            return sum_2, included_temp2
