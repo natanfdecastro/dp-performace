@@ -21,17 +21,17 @@ def knapsack_top_down(file,iterations):
     memo = [[0 for i in range(max_weigth + 1)] for j in range(n + 1)]
     for i in memo:
         memoize_top_down.append(i)
-    print('Total Weigth: ' + str(max_weigth))
-    print('Benefits: ' + str(benefits))
+    print('Capcidad total: ' + str(max_weigth))
+    print('Beneficios: ' + str(benefits))
     print('Items Weight: ', weigths)
-    print('Capacity: ', n)
+    print('Cantidad de elementos: ', n)
     print('\n')
     for i in range(int(iterations)):
-        print("Max benefit: ", knapsack(weigths, benefits, max_weigth, n))
-        print("Selected Items: ", __get_list_benefits(benefits, weigths, n, max_weigth))
+        print("Beneficio Maximo: ", __knapsack(weigths, benefits, max_weigth, n))
+        print("Incluidos: ", __get_list_benefits(benefits, weigths, n, max_weigth))
 
 # knapsack with top down approach
-def knapsack(wtf, vals, wf, nf):
+def __knapsack(wtf, vals, wf, nf):
 
     # base conditions
     if nf == 0 or wf == 0:
@@ -41,11 +41,11 @@ def knapsack(wtf, vals, wf, nf):
 
     # choice diagram code
     if wtf[nf - 1] <= wf:
-        memoize_top_down[nf][wf] = max(vals[nf - 1] + knapsack(wtf, vals, wf - wtf[nf - 1], nf - 1), knapsack(wtf, vals, wf, nf - 1))
+        memoize_top_down[nf][wf] = max(vals[nf - 1] + __knapsack(wtf, vals, wf - wtf[nf - 1], nf - 1), __knapsack(wtf, vals, wf, nf - 1))
         return memoize_top_down[nf][wf]
 
     elif wtf[nf - 1] > wf:
-        memoize_top_down[nf][wf] = knapsack(wtf, vals, wf, nf - 1)
+        memoize_top_down[nf][wf] = __knapsack(wtf, vals, wf, nf - 1)
         return memoize_top_down[nf][wf]
 
 # method to read top the matix and get the selected items
