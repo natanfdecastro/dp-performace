@@ -1,9 +1,11 @@
 import sys
 from sys import path
 import random
+import gold_mine
+import parser_txt_gold_mine
 
 path.append('src.main.python.edu.tec.ic6400')
-# import gold_mine
+
 
 mode = sys.argv[2]
 
@@ -26,18 +28,20 @@ if mode == "-p":
     if algorithm == 1:
         pass
     elif algorithm == 2:
-        pass
-    else:
-        pass
+        print('11')
+
 
 elif mode == "-a":
     print("Se quiere hacer del modo manual")
     algorithm = sys.argv[1]
     file = sys.argv[3]
     iterations = sys.argv[4]
+    gold_matrix = parser_txt_gold_mine.parser(file)
+    n = len(gold_matrix)
+    m = len(gold_matrix[0])
     if algorithm == 1:
         pass
-    elif algorithm == 2:
-        pass
+    elif algorithm == "2":
+        gold_mine.gold_mine_dp(gold_matrix,n,m)
     else:
         pass

@@ -61,7 +61,6 @@ if mode == "-p":
 
 
 elif mode == "-a":
-
     print("[ Manual Mode ]")
     algorithm = sys.argv[1]
     file = sys.argv[3]
