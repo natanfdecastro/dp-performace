@@ -11,7 +11,6 @@ def parser(filename):
         matrix.append(list(eval(line)))
     m = (len(matrix))
     n = (len(matrix[0]))
-    print(matrix)
     return matrix
 
 
