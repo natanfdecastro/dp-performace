@@ -26,17 +26,20 @@ if mode == "-p":
         random_matrix.append(random_list)
 
     if algorithm == 1:
-        pass
+        print("-Brute force-")
+        print("")
+        print("Gold Mine")
+        print(random_matrix)
+
+        gold_mine.brute_force(random_matrix, N, M, iterations)
+
     else:
         print("-Dynamic programming-")
         print("")
         print("Gold Mine")
-        for i in range(len(random_matrix[0])):
-            lst_str = str(random_matrix[i])[1:-1]
-            print(lst_str)
-        print("")
+        print(random_matrix)
 
-        gold_mine.gold_mine_dp(random_matrix,N,M,iterations)
+        gold_mine.gold_mine_dp(random_matrix, N, M, iterations)
 
 
 elif mode == "-a":
@@ -47,14 +50,18 @@ elif mode == "-a":
     gold_matrix = parser_txt_gold_mine.parser(file)
     n = len(gold_matrix)
     m = len(gold_matrix[0])
-    if algorithm == 1:
-        pass
+    if algorithm == "1":
+        print("-Brute Force-")
+        print("")
+        print("Gold Mine")
+        print(gold_matrix)
+
+        gold_mine.brute_force(gold_matrix, n, m, iterations)
+
     else:
         print("-Dynamic programming-")
         print("")
         print("Gold Mine")
-        for i in range(len(gold_matrix[0])):
-            lst_str = str(gold_matrix[i])[1:-1]
-            print(lst_str)
-        print("")
-        gold_mine.gold_mine_dp(gold_matrix,n,m,iterations)
+        print(gold_matrix)
+
+        gold_mine.gold_mine_dp(gold_matrix, n, m, iterations)
