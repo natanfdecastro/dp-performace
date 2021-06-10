@@ -26,7 +26,6 @@ def knapsack_bottom_up(total_weight, items_weights, benefits, len, iterations):
         for i in range(len, 0, -1):
             if answer <= 0:
                 break
-
             if answer == knapsack_solutions[i - 1][total_weight_temp]:
                 continue
             else:
@@ -40,8 +39,53 @@ def knapsack_bottom_up(total_weight, items_weights, benefits, len, iterations):
         print("Incluidos: ", str(included)[1:-1])
 
 
-def knapsack_top_down():
-    print("top down")
+# Matrix use to memoization of top down approach
+memoize_top_down = []
+# values setter for knapsack with top down approach
+def knapsack_top_down(max_weigth, weigths, benefits, n, iterations):
+
+    memo = [[0 for i in range(max_weigth + 1)] for j in range(n + 1)]
+    
+    for i in memo:
+        memoize_top_down.append(i)
+
+    for i in range(int(iterations)):
+        print("Beneficio Maximo: ", __knapsack(weigths, benefits, max_weigth, n))
+        print("Incluidos: ", __get_list_benefits(benefits, weigths, n, max_weigth))
+
+# knapsack with top down approach
+def __knapsack(wtf, vals, wf, nf):
+
+    # base conditions
+    if nf == 0 or wf == 0:
+        return 0
+    if memoize_top_down[nf][wf] != 0:
+        return memoize_top_down[nf][wf]
+
+    # choice diagram code
+    if wtf[nf - 1] <= wf:
+        memoize_top_down[nf][wf] = max(vals[nf - 1] + __knapsack(wtf, vals, wf - wtf[nf - 1], nf - 1), __knapsack(wtf, vals, wf, nf - 1))
+        return memoize_top_down[nf][wf]
+
+    elif wtf[nf - 1] > wf:
+        memoize_top_down[nf][wf] = __knapsack(wtf, vals, wf, nf - 1)
+        return memoize_top_down[nf][wf]
+
+# method to read top the matix and get the selected items
+def __get_list_benefits(val,wt,n,W):
+    benefits = []
+    i = n
+    k = W
+
+    while i > 0 and k > 0:
+        if memoize_top_down[i][k] != memoize_top_down[i - 1][k]:
+            benefits.append([i,val[i - 1],wt[i-1]])
+            i = i - 1
+            k = k - wt[i]
+        else:
+            i = i - 1
+    return benefits
+
 
 
 def routines_brute_force(total_weight, items_weights, benefits, capacity, iterations):
