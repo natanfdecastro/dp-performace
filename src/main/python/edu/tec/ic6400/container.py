@@ -5,7 +5,7 @@ import knapsack
 import random
 
 
-# total arguments
+
 mode=sys.argv[2]
 
 if(mode=="-p"):
