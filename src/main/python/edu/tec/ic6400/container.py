@@ -56,6 +56,8 @@ if mode == "-p":
         knapsack.routines_brute_force(int(weight), item_weight, item_benefit, int(number_of_elements), int(iterations))
     elif algorithm == "2":
         knapsack.knapsack_bottom_up(int(weight), item_weight, item_benefit, int(number_of_elements), int(iterations))
+    elif algorithm == "3":
+        knapsack.knapsack_top_down(int(weight), item_weight, item_benefit, int(number_of_elements), int(iterations))
 
 
 elif mode == "-a":
@@ -76,5 +78,5 @@ elif mode == "-a":
         knapsack.routines_brute_force(total_weight, items_weights, benefits, capacity, iterations)
     elif algorithm == "2":
         knapsack.knapsack_bottom_up(total_weight, items_weights, benefits, capacity, iterations)
-    elif(algorithm=="3"):
-        knapsack.knapsack_top_down(total_weight, items_weights, benefits, capacity,iterations)
+    elif algorithm == "3":
+        knapsack.knapsack_top_down(total_weight, items_weights, benefits, capacity, iterations)
